@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreetSmart Supply - Connect with Trusted Suppliers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#f97316',
+                        secondary: '#ea580c',
+                        accent: '#fb923c'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .page { display: none; }
+        .page.active { display: block; }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-primary">🛒 StreetSmart Supply</div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" onclick="showPage('home')" class="nav-link text-gray-700 hover:text-primary transition-colors">Home</a>
+                    <a href="#" onclick="showPage('suppliers')" class="nav-link text-gray-700 hover:text-primary transition-colors">Find Suppliers</a>
+                    <a href="#" onclick="showPage('products')" class="nav-link text-gray-700 hover:text-primary transition-colors">Products</a>
+                    <a href="#" onclick="showPage('orders')" class="nav-link text-gray-700 hover:text-primary transition-colors">My Orders</a>
+                    <a href="#" onclick="showPage('profile')" class="nav-link text-gray-700 hover:text-primary transition-colors">Profile</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="showCart()" class="relative text-primary hover:text-secondary transition-colors">
+                        🛒 Cart <span id="cart-count" class="bg-red-500 text-white text-xs rounded-full px-2 py-1 ml-1 hidden">0</span>
+                    </button>
+                    <button onclick="showPage('login')" class="text-primary hover:text-secondary transition-colors">Login</button>
+                    <button onclick="showPage('register')" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors">Sign Up</button>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-gray-700 hover:text-primary">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#" onclick="showPage('home')" class="block px-3 py-2 text-gray-700 hover:text-primary">Home</a>
+                <a href="#" onclick="showPage('suppliers')" class="block px-3 py-2 text-gray-700 hover:text-primary">Find Suppliers</a>
+                <a href="#" onclick="showPage('products')" class="block px-3 py-2 text-gray-700 hover:text-primary">Products</a>
+                <a href="#" onclick="showPage('orders')" class="block px-3 py-2 text-gray-700 hover:text-primary">My Orders</a>
+                <a href="#" onclick="showPage('profile')" class="block px-3 py-2 text-gray-700 hover:text-primary">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active fade-in">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-r from-primary to-secondary text-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Find Trusted Suppliers for Your Street Food Business</h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">Connect with verified suppliers offering quality ingredients at wholesale prices</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="showPage('suppliers')" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Find Suppliers</button>
+                    <button onclick="showPage('register')" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors">Join as Vendor</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Why Choose StreetSmart Supply?</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center p-6 rounded-lg border hover:shadow-lg transition-shadow">
+                        <div class="text-4xl mb-4">🔍</div>
+                        <h3 class="text-xl font-semibold mb-3">Verified Suppliers</h3>
+                        <p class="text-gray-600">All suppliers are thoroughly verified for quality and reliability</p>
+                    </div>
+                    <div class="text-center p-6 rounded-lg border hover:shadow-lg transition-shadow">
+                        <div class="text-4xl mb-4">💰</div>
+                        <h3 class="text-xl font-semibold mb-3">Best Prices</h3>
+                        <p class="text-gray-600">Get wholesale prices and bulk discounts on all ingredients</p>
+                    </div>
+                    <div class="text-center p-6 rounded-lg border hover:shadow-lg transition-shadow">
+                        <div class="text-4xl mb-4">🚚</div>
+                        <h3 class="text-xl font-semibold mb-3">Fast Delivery</h3>
+                        <p class="text-gray-600">Quick delivery to keep your business running smoothly</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Categories -->
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Popular Categories</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-lg text-center hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('products')">
+                        <div class="text-3xl mb-3">🌶️</div>
+                        <h3 class="font-semibold">Spices</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg text-center hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('products')">
+                        <div class="text-3xl mb-3">🥬</div>
+                        <h3 class="font-semibold">Vegetables</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg text-center hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('products')">
+                        <div class="text-3xl mb-3">🥛</div>
+                        <h3 class="font-semibold">Dairy</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg text-center hover:shadow-lg transition-shadow cursor-pointer" onclick="showPage('products')">
+                        <div class="text-3xl mb-3">🍖</div>
+                        <h3 class="font-semibold">Meat</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Suppliers Page -->
+    <div id="suppliers" class="page">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <h1 class="text-3xl font-bold mb-8 text-gray-800">Find Suppliers</h1>
+            
+            <!-- Search and Filters -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                <div class="grid md:grid-cols-4 gap-4">
+                    <input type="text" placeholder="Search suppliers..." class="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                    <select class="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <option>All Categories</option>
+                        <option>Spices</option>
+                        <option>Vegetables</option>
+                        <option>Dairy</option>
+                        <option>Meat</option>
+                    </select>
+                    <select class="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <option>All Locations</option>
+                        <option>Mumbai</option>
+                        <option>Delhi</option>
+                        <option>Bangalore</option>
+                        <option>Chennai</option>
+                    </select>
+                    <button class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-secondary transition-colors">Search</button>
+                </div>
+            </div>
+
+            <!-- Suppliers Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl">RS</div>
+                            <div class="ml-4">
+                                <h3 class="font-semibold text-lg">Raj Spices Co.</h3>
+                                <p class="text-gray-600">Mumbai, Maharashtra</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-3">
+                            <span class="text-yellow-500">★★★★★</span>
+                            <span class="ml-2 text-gray-600">(4.8) 156 reviews</span>
+                        </div>
+                        <p class="text-gray-700 mb-4">Premium quality spices and masalas for street food vendors</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">Spices</span>
+                            <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">Masalas</span>
+                        </div>
+                        <button class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">View Details</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl">FV</div>
+                            <div class="ml-4">
+                                <h3 class="font-semibold text-lg">Fresh Veggies Hub</h3>
+                                <p class="text-gray-600">Delhi, NCR</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-3">
+                            <span class="text-yellow-500">★★★★☆</span>
+                            <span class="ml-2 text-gray-600">(4.5) 89 reviews</span>
+                        </div>
+                        <p class="text-gray-700 mb-4">Fresh vegetables delivered daily to your location</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">Vegetables</span>
+                            <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">Fruits</span>
+                        </div>
+                        <button class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">View Details</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl">MD</div>
+                            <div class="ml-4">
+                                <h3 class="font-semibold text-lg">Metro Dairy Products</h3>
+                                <p class="text-gray-600">Bangalore, Karnataka</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-3">
+                            <span class="text-yellow-500">★★★★★</span>
+                            <span class="ml-2 text-gray-600">(4.9) 203 reviews</span>
+                        </div>
+                        <p class="text-gray-700 mb-4">Quality dairy products at wholesale prices</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">Dairy</span>
+                            <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">Cheese</span>
+                        </div>
+                        <button class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Page -->
+    <div id="products" class="page">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <h1 class="text-3xl font-bold mb-8 text-gray-800">Products</h1>
+            
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button onclick="filterProducts('all')" class="category-tab active bg-primary text-white px-4 py-2 rounded-lg">All</button>
+                <button onclick="filterProducts('spices')" class="category-tab bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Spices</button>
+                <button onclick="filterProducts('vegetables')" class="category-tab bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Vegetables</button>
+                <button onclick="filterProducts('dairy')" class="category-tab bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Dairy</button>
+                <button onclick="filterProducts('meat')" class="category-tab bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Meat</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="spices">
+                    <div class="h-48 bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center">
+                        <span class="text-6xl">🌶️</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Red Chili Powder</h3>
+                        <p class="text-gray-600 text-sm mb-3">Premium quality red chili powder</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹180</span>
+                            <span class="text-gray-500 text-sm">per kg</span>
+                        </div>
+                        <button onclick="addToCart('Red Chili Powder', 180)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="vegetables">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                        <span class="text-6xl">🧅</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Fresh Onions</h3>
+                        <p class="text-gray-600 text-sm mb-3">Grade A fresh onions</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹25</span>
+                            <span class="text-gray-500 text-sm">per kg</span>
+                        </div>
+                        <button onclick="addToCart('Fresh Onions', 25)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="dairy">
+                    <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                        <span class="text-6xl">🥛</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Fresh Milk</h3>
+                        <p class="text-gray-600 text-sm mb-3">Pure cow milk</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹55</span>
+                            <span class="text-gray-500 text-sm">per liter</span>
+                        </div>
+                        <button onclick="addToCart('Fresh Milk', 55)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="spices">
+                    <div class="h-48 bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center">
+                        <span class="text-6xl">🧄</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Turmeric Powder</h3>
+                        <p class="text-gray-600 text-sm mb-3">Pure turmeric powder</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹220</span>
+                            <span class="text-gray-500 text-sm">per kg</span>
+                        </div>
+                        <button onclick="addToCart('Turmeric Powder', 220)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="spices">
+                    <div class="h-48 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
+                        <span class="text-6xl">🌿</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Cumin Powder</h3>
+                        <p class="text-gray-600 text-sm mb-3">Aromatic cumin powder</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹240</span>
+                            <span class="text-gray-500 text-sm">per kg</span>
+                        </div>
+                        <button onclick="addToCart('Cumin Powder', 240)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="vegetables">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                        <span class="text-6xl">🥕</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Fresh Carrots</h3>
+                        <p class="text-gray-600 text-sm mb-3">Crisp and fresh carrots</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹35</span>
+                            <span class="text-gray-500 text-sm">per kg</span>
+                        </div>
+                        <button onclick="addToCart('Fresh Carrots', 35)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="vegetables">
+                    <div class="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+                        <span class="text-6xl">🍆</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Fresh Eggplant</h3>
+                        <p class="text-gray-600 text-sm mb-3">Premium quality eggplant</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹28</span>
+                            <span class="text-gray-500 text-sm">per kg</span>
+                        </div>
+                        <button onclick="addToCart('Fresh Eggplant', 28)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="dairy">
+                    <div class="h-48 bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center">
+                        <span class="text-6xl">🧈</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Fresh Butter</h3>
+                        <p class="text-gray-600 text-sm mb-3">Creamy fresh butter</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹450</span>
+                            <span class="text-gray-500 text-sm">per kg</span>
+                        </div>
+                        <button onclick="addToCart('Fresh Butter', 450)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="dairy">
+                    <div class="h-48 bg-gradient-to-br from-white to-gray-200 flex items-center justify-center">
+                        <span class="text-6xl">🧀</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Paneer</h3>
+                        <p class="text-gray-600 text-sm mb-3">Fresh cottage cheese</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹280</span>
+                            <span class="text-gray-500 text-sm">per kg</span>
+                        </div>
+                        <button onclick="addToCart('Paneer', 280)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="meat">
+                    <div class="h-48 bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center">
+                        <span class="text-6xl">🍗</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Fresh Chicken</h3>
+                        <p class="text-gray-600 text-sm mb-3">Premium quality chicken</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹180</span>
+                            <span class="text-gray-500 text-sm">per kg</span>
+                        </div>
+                        <button onclick="addToCart('Fresh Chicken', 180)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow" data-category="meat">
+                    <div class="h-48 bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center">
+                        <span class="text-6xl">🥩</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Mutton</h3>
+                        <p class="text-gray-600 text-sm mb-3">Fresh mutton cuts</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-2xl font-bold text-primary">₹650</span>
+                            <span class="text-gray-500 text-sm">per kg</span>
+                        </div>
+                        <button onclick="addToCart('Mutton', 650)" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders Page -->
+    <div id="orders" class="page">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <h1 class="text-3xl font-bold mb-8 text-gray-800">My Orders</h1>
+            
+            <!-- Order Status Tabs -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button onclick="filterOrders('all')" class="order-tab active bg-primary text-white px-4 py-2 rounded-lg">All Orders</button>
+                <button onclick="filterOrders('pending')" class="order-tab bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Pending</button>
+                <button onclick="filterOrders('confirmed')" class="order-tab bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Confirmed</button>
+                <button onclick="filterOrders('delivered')" class="order-tab bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Delivered</button>
+                <button onclick="filterOrders('cancelled')" class="order-tab bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Cancelled</button>
+            </div>
+
+            <!-- Orders List -->
+            <div class="space-y-6">
+                <div class="order-item bg-white rounded-lg shadow-md p-6" data-status="confirmed">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold">Order #ORD-001</h3>
+                            <p class="text-gray-600">Placed on March 15, 2024</p>
+                        </div>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Confirmed</span>
+                    </div>
+                    <div class="border-t pt-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span>Red Chili Powder (5kg)</span>
+                            <span>₹900</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span>Fresh Onions (10kg)</span>
+                            <span>₹250</span>
+                        </div>
+                        <div class="border-t pt-2 mt-2">
+                            <div class="flex justify-between items-center font-semibold">
+                                <span>Total</span>
+                                <span>₹1,150</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors">Track Order</button>
+                        <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">View Details</button>
+                    </div>
+                </div>
+
+                <div class="order-item bg-white rounded-lg shadow-md p-6" data-status="pending">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold">Order #ORD-002</h3>
+                            <p class="text-gray-600">Placed on March 18, 2024</p>
+                        </div>
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Pending</span>
+                    </div>
+                    <div class="border-t pt-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span>Fresh Milk (20L)</span>
+                            <span>₹1,100</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span>Turmeric Powder (2kg)</span>
+                            <span>₹440</span>
+                        </div>
+                        <div class="border-t pt-2 mt-2">
+                            <div class="flex justify-between items-center font-semibold">
+                                <span>Total</span>
+                                <span>₹1,540</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">Cancel Order</button>
+                        <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profile" class="page">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <h1 class="text-3xl font-bold mb-8 text-gray-800">My Profile</h1>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Profile Sidebar -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 bg-primary rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-4">RK</div>
+                        <h2 class="text-xl font-semibold">Raj Kumar</h2>
+                        <p class="text-gray-600">Street Food Vendor</p>
+                    </div>
+                    <nav class="space-y-2">
+                        <button onclick="showProfileSection('personal')" class="profile-nav-btn active w-full text-left px-4 py-2 rounded-lg bg-primary text-white">Personal Info</button>
+                        <button onclick="showProfileSection('business')" class="profile-nav-btn w-full text-left px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Business Details</button>
+                        <button onclick="showProfileSection('preferences')" class="profile-nav-btn w-full text-left px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Preferences</button>
+                        <button onclick="showProfileSection('security')" class="profile-nav-btn w-full text-left px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Security</button>
+                    </nav>
+                </div>
+
+                <!-- Profile Content -->
+                <div class="md:col-span-2">
+                    <!-- Personal Info Section -->
+                    <div id="personal-section" class="profile-section bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-6">Personal Information</h3>
+                        <form class="space-y-4">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                    <input type="text" value="Raj" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                    <input type="text" value="Kumar" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="email" value="raj.kumar@email.com" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                                <input type="tel" value="+91 9876543210" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                                <textarea rows="3" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">123 Street Food Lane, Mumbai, Maharashtra 400001</textarea>
+                            </div>
+                            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-secondary transition-colors">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <!-- Business Details Section -->
+                    <div id="business-section" class="profile-section bg-white rounded-lg shadow-md p-6 hidden">
+                        <h3 class="text-xl font-semibold mb-6">Business Details</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Business Name</label>
+                                <input type="text" value="Raj's Street Food Corner" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Business Type</label>
+                                <select class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option>Street Food Stall</option>
+                                    <option>Food Cart</option>
+                                    <option>Small Restaurant</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">GST Number</label>
+                                <input type="text" value="27ABCDE1234F1Z5" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Business Address</label>
+                                <textarea rows="3" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">Near City Mall, Main Road, Mumbai, Maharashtra 400001</textarea>
+                            </div>
+                            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-secondary transition-colors">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <!-- Preferences Section -->
+                    <div id="preferences-section" class="profile-section bg-white rounded-lg shadow-md p-6 hidden">
+                        <h3 class="text-xl font-semibold mb-6">Preferences</h3>
+                        <form class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Preferred Categories</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" checked class="mr-3 text-primary focus:ring-primary">
+                                        <span>Spices & Masalas</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" checked class="mr-3 text-primary focus:ring-primary">
+                                        <span>Vegetables</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="mr-3 text-primary focus:ring-primary">
+                                        <span>Dairy Products</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="mr-3 text-primary focus:ring-primary">
+                                        <span>Meat & Poultry</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Notification Preferences</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" checked class="mr-3 text-primary focus:ring-primary">
+                                        <span>Order Updates</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" checked class="mr-3 text-primary focus:ring-primary">
+                                        <span>New Supplier Alerts</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="mr-3 text-primary focus:ring-primary">
+                                        <span>Price Drop Notifications</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-secondary transition-colors">Save Preferences</button>
+                        </form>
+                    </div>
+
+                    <!-- Security Section -->
+                    <div id="security-section" class="profile-section bg-white rounded-lg shadow-md p-6 hidden">
+                        <h3 class="text-xl font-semibold mb-6">Security Settings</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
+                                <input type="password" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+                                <input type="password" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                                <input type="password" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-secondary transition-colors">Update Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login" class="page">
+        <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md w-full space-y-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-gray-900">Sign in to your account</h2>
+                    <p class="mt-2 text-gray-600">Connect with trusted suppliers</p>
+                </div>
+                <form class="mt-8 space-y-6" onsubmit="handleLogin(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+                            <input type="email" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input type="password" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2 text-primary focus:ring-primary">
+                            <span class="text-sm text-gray-600">Remember me</span>
+                        </label>
+                        <a href="#" class="text-sm text-primary hover:text-secondary">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary transition-colors">Sign In</button>
+                    <div class="text-center">
+                        <span class="text-gray-600">Don't have an account? </span>
+                        <a href="#" onclick="showPage('register')" class="text-primary hover:text-secondary font-semibold">Sign up</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="register" class="page">
+        <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md w-full space-y-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-gray-900">Create your account</h2>
+                    <p class="mt-2 text-gray-600">Join thousands of vendors</p>
+                </div>
+                <form class="mt-8 space-y-6" onsubmit="handleRegister(event)">
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+                            <input type="email" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                            <input type="tel" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Business Name</label>
+                            <input type="text" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input type="password" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                            <input type="password" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" required class="mr-2 text-primary focus:ring-primary">
+                            <span class="text-sm text-gray-600">I agree to the Terms of Service and Privacy Policy</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary transition-colors">Create Account</button>
+                    <div class="text-center">
+                        <span class="text-gray-600">Already have an account? </span>
+                        <a href="#" onclick="showPage('login')" class="text-primary hover:text-secondary font-semibold">Sign in</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-md w-full max-h-96 overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold">Shopping Cart</h3>
+                        <button onclick="closeCart()" class="text-gray-500 hover:text-gray-700">✕</button>
+                    </div>
+                    <div id="cart-items" class="space-y-3 mb-4">
+                        <!-- Cart items will be populated here -->
+                    </div>
+                    <div class="border-t pt-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="font-semibold">Total: ₹<span id="cart-total">0</span></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="closeCart()" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50">Continue Shopping</button>
+                            <button onclick="showAddressForm()" class="flex-1 bg-primary text-white py-2 rounded-lg hover:bg-secondary">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address Form Modal -->
+    <div id="address-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-lg w-full max-h-screen overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-semibold">Delivery Address</h3>
+                        <button onclick="closeAddressForm()" class="text-gray-500 hover:text-gray-700">✕</button>
+                    </div>
+                    
+                    <form id="address-form" onsubmit="submitOrder(event)" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                                <input type="text" id="firstName" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                                <input type="text" id="lastName" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                            <input type="tel" id="phone" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="+91 9876543210">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Street Address *</label>
+                            <input type="text" id="streetAddress" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="House/Shop number, Street name">
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">City *</label>
+                                <input type="text" id="city" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">State *</label>
+                                <select id="state" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option value="">Select State</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">PIN Code *</label>
+                                <input type="text" id="pincode" required pattern="[0-9]{6}" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="400001">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Landmark</label>
+                                <input type="text" id="landmark" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Near Metro Station">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Address Type</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="addressType" value="business" checked class="mr-2 text-primary focus:ring-primary">
+                                    <span>Business</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="addressType" value="home" class="mr-2 text-primary focus:ring-primary">
+                                    <span>Home</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Special Instructions</label>
+                            <textarea id="instructions" rows="3" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Any special delivery instructions..."></textarea>
+                        </div>
+                        
+                        <!-- Order Summary -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">Order Summary</h4>
+                            <div id="order-summary-items" class="space-y-2 mb-3">
+                                <!-- Order items will be populated here -->
+                            </div>
+                            <div class="border-t pt-3">
+                                <div class="flex justify-between items-center font-semibold text-lg">
+                                    <span>Total Amount:</span>
+                                    <span class="text-primary">₹<span id="order-total">0</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3 pt-4">
+                            <button type="button" onclick="closeAddressForm()" class="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition-colors">Cancel</button>
+                            <button type="submit" class="flex-1 bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors font-semibold">Confirm Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">🛒 StreetSmart Supply</h3>
+                    <p class="text-gray-300">Connecting street food vendors with trusted suppliers across India.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" onclick="showPage('home')" class="hover:text-white">Home</a></li>
+                        <li><a href="#" onclick="showPage('suppliers')" class="hover:text-white">Find Suppliers</a></li>
+                        <li><a href="#" onclick="showPage('products')" class="hover:text-white">Products</a></li>
+                        <li><a href="#" class="hover:text-white">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact Info</h4>
+                    <div class="space-y-2 text-gray-300">
+                        <p>📧 support@streetsmartsupply.com</p>
+                        <p>📞 +91 1800-123-4567</p>
+                        <p>📍 Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 StreetSmart Supply. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+                page.style.display = 'none';
+            });
+            
+            // Show selected page
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.style.display = 'block';
+                selectedPage.classList.add('active', 'fade-in');
+            }
+            
+            // Close mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Product filtering
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-card');
+            const tabs = document.querySelectorAll('.category-tab');
+            
+            // Update active tab
+            tabs.forEach(tab => {
+                tab.classList.remove('active', 'bg-primary', 'text-white');
+                tab.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            event.target.classList.add('active', 'bg-primary', 'text-white');
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
+            
+            // Filter products
+            products.forEach(product => {
+                if (category === 'all' || product.dataset.category === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Order filtering
+        function filterOrders(status) {
+            const orders = document.querySelectorAll('.order-item');
+            const tabs = document.querySelectorAll('.order-tab');
+            
+            // Update active tab
+            tabs.forEach(tab => {
+                tab.classList.remove('active', 'bg-primary', 'text-white');
+                tab.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            event.target.classList.add('active', 'bg-primary', 'text-white');
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
+            
+            // Filter orders
+            orders.forEach(order => {
+                if (status === 'all' || order.dataset.status === status) {
+                    order.style.display = 'block';
+                } else {
+                    order.style.display = 'none';
+                }
+            });
+        }
+
+        // Profile section navigation
+        function showProfileSection(sectionId) {
+            const sections = document.querySelectorAll('.profile-section');
+            const navBtns = document.querySelectorAll('.profile-nav-btn');
+            
+            // Hide all sections
+            sections.forEach(section => section.classList.add('hidden'));
+            
+            // Show selected section
+            document.getElementById(sectionId + '-section').classList.remove('hidden');
+            
+            // Update active nav button
+            navBtns.forEach(btn => {
+                btn.classList.remove('active', 'bg-primary', 'text-white');
+                btn.classList.add('text-gray-700');
+            });
+            event.target.classList.add('active', 'bg-primary', 'text-white');
+            event.target.classList.remove('text-gray-700');
+        }
+
+        // Cart and Orders Management
+        let cart = [];
+        let orders = [
+            {
+                id: 'ORD-001',
+                date: 'December 18, 2024',
+                status: 'confirmed',
+                items: [
+                    { name: 'Red Chili Powder', quantity: '5kg', price: 900 },
+                    { name: 'Fresh Onions', quantity: '10kg', price: 250 }
+                ],
+                total: 1150,
+                address: {
+                    firstName: 'Raj',
+                    lastName: 'Kumar',
+                    phone: '+91 9876543210',
+                    streetAddress: '123 Street Food Lane',
+                    city: 'Mumbai',
+                    state: 'Maharashtra',
+                    pincode: '400001'
+                }
+            },
+            {
+                id: 'ORD-002',
+                date: 'December 20, 2024',
+                status: 'pending',
+                items: [
+                    { name: 'Fresh Milk', quantity: '20L', price: 1100 },
+                    { name: 'Turmeric Powder', quantity: '2kg', price: 440 }
+                ],
+                total: 1540,
+                address: {
+                    firstName: 'Raj',
+                    lastName: 'Kumar',
+                    phone: '+91 9876543210',
+                    streetAddress: '123 Street Food Lane',
+                    city: 'Mumbai',
+                    state: 'Maharashtra',
+                    pincode: '400001'
+                }
+            }
+        ];
+
+        // Add to cart functionality
+        function addToCart(productName, price) {
+            const existingItem = cart.find(item => item.name === productName);
+            if (existingItem) {
+                existingItem.quantity += 1;
+                existingItem.totalPrice = existingItem.quantity * existingItem.unitPrice;
+            } else {
+                cart.push({
+                    name: productName,
+                    unitPrice: price,
+                    quantity: 1,
+                    totalPrice: price
+                });
+            }
+            
+            updateCartDisplay();
+            alert(`${productName} added to cart for ₹${price}!`);
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            const cartCountElement = document.getElementById('cart-count');
+            
+            if (cartCount > 0) {
+                cartCountElement.textContent = cartCount;
+                cartCountElement.classList.remove('hidden');
+            } else {
+                cartCountElement.classList.add('hidden');
+            }
+            
+            updateCartModal();
+        }
+
+        // Show cart modal
+        function showCart() {
+            updateCartModal();
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
+
+        // Close cart modal
+        function closeCart() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+        // Update cart modal content
+        function updateCartModal() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center py-4">Your cart is empty</p>';
+                cartTotalElement.textContent = '0';
+                return;
+            }
+            
+            cartItemsContainer.innerHTML = cart.map(item => `
+                <div class="flex justify-between items-center p-3 border rounded-lg">
+                    <div>
+                        <h4 class="font-medium">${item.name}</h4>
+                        <p class="text-sm text-gray-600">₹${item.unitPrice} × ${item.quantity}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="updateCartQuantity('${item.name}', -1)" class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full text-sm hover:bg-gray-300">-</button>
+                        <span class="w-8 text-center">${item.quantity}</span>
+                        <button onclick="updateCartQuantity('${item.name}', 1)" class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full text-sm hover:bg-gray-300">+</button>
+                        <button onclick="removeFromCart('${item.name}')" class="text-red-500 hover:text-red-700 ml-2">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+            cartTotalElement.textContent = total;
+        }
+
+        // Update cart item quantity
+        function updateCartQuantity(productName, change) {
+            const item = cart.find(item => item.name === productName);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productName);
+                } else {
+                    item.totalPrice = item.quantity * item.unitPrice;
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(productName) {
+            cart = cart.filter(item => item.name !== productName);
+            updateCartDisplay();
+        }
+
+        // Show address form
+        function showAddressForm() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Update order summary in address form
+            updateOrderSummary();
+            
+            // Show address modal
+            document.getElementById('address-modal').classList.remove('hidden');
+        }
+
+        // Close address form
+        function closeAddressForm() {
+            document.getElementById('address-modal').classList.add('hidden');
+            document.getElementById('address-form').reset();
+        }
+
+        // Update order summary in address form
+        function updateOrderSummary() {
+            const summaryContainer = document.getElementById('order-summary-items');
+            const orderTotalElement = document.getElementById('order-total');
+            
+            summaryContainer.innerHTML = cart.map(item => `
+                <div class="flex justify-between items-center text-sm">
+                    <span>${item.name} × ${item.quantity}</span>
+                    <span>₹${item.totalPrice}</span>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+            orderTotalElement.textContent = total;
+        }
+
+        // Submit order with address
+        function submitOrder(event) {
+            event.preventDefault();
+            
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            // Get address details from form
+            const addressData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                phone: document.getElementById('phone').value,
+                streetAddress: document.getElementById('streetAddress').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                pincode: document.getElementById('pincode').value,
+                landmark: document.getElementById('landmark').value,
+                addressType: document.querySelector('input[name="addressType"]:checked').value,
+                instructions: document.getElementById('instructions').value
+            };
+
+            const newOrder = {
+                id: `ORD-${String(orders.length + 1).padStart(3, '0')}`,
+                date: new Date().toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                }),
+                status: 'pending',
+                items: cart.map(item => ({
+                    name: item.name,
+                    quantity: `${item.quantity}${getUnit(item.name)}`,
+                    price: item.totalPrice
+                })),
+                total: cart.reduce((total, item) => total + item.totalPrice, 0),
+                address: addressData
+            };
+
+            orders.unshift(newOrder); // Add to beginning of orders array
+            cart = []; // Clear cart
+            updateCartDisplay();
+            updateOrdersDisplay();
+            
+            // Close modals
+            closeAddressForm();
+            closeCart();
+            
+            alert(`Order placed successfully! Order ID: ${newOrder.id}\nDelivery to: ${addressData.firstName} ${addressData.lastName}, ${addressData.city}, ${addressData.state}`);
+            showPage('orders');
+        }
+
+        // Get unit for product
+        function getUnit(productName) {
+            if (productName.includes('Milk')) return 'L';
+            return 'kg';
+        }
+
+        // Update orders display
+        function updateOrdersDisplay() {
+            const ordersContainer = document.querySelector('#orders .space-y-6');
+            ordersContainer.innerHTML = '';
+
+            orders.forEach(order => {
+                const statusClass = {
+                    'pending': 'bg-yellow-100 text-yellow-800',
+                    'confirmed': 'bg-green-100 text-green-800',
+                    'delivered': 'bg-blue-100 text-blue-800',
+                    'cancelled': 'bg-red-100 text-red-800'
+                };
+
+                const orderHTML = `
+                    <div class="order-item bg-white rounded-lg shadow-md p-6" data-status="${order.status}">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                            <div>
+                                <h3 class="text-lg font-semibold">Order #${order.id}</h3>
+                                <p class="text-gray-600">Placed on ${order.date}</p>
+                            </div>
+                            <span class="${statusClass[order.status]} px-3 py-1 rounded-full text-sm font-medium capitalize">${order.status}</span>
+                        </div>
+                        <div class="border-t pt-4">
+                            ${order.items.map(item => `
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>${item.name} (${item.quantity})</span>
+                                    <span>₹${item.price}</span>
+                                </div>
+                            `).join('')}
+                            <div class="border-t pt-2 mt-2">
+                                <div class="flex justify-between items-center font-semibold">
+                                    <span>Total</span>
+                                    <span>₹${order.total}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-2">
+                            ${order.status === 'pending' ? 
+                                `<button onclick="cancelOrder('${order.id}')" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">Cancel Order</button>` :
+                                `<button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors">Track Order</button>`
+                            }
+                            <button onclick="viewOrderDetails('${order.id}')" class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">View Details</button>
+                        </div>
+                    </div>
+                `;
+                ordersContainer.innerHTML += orderHTML;
+            });
+        }
+
+        // Cancel order
+        function cancelOrder(orderId) {
+            if (confirm('Are you sure you want to cancel this order?')) {
+                const orderIndex = orders.findIndex(order => order.id === orderId);
+                if (orderIndex !== -1) {
+                    orders.splice(orderIndex, 1); // Remove the order from the array
+                    updateOrdersDisplay();
+                    alert('Order cancelled and removed successfully!');
+                }
+            }
+        }
+
+        // View order details
+        function viewOrderDetails(orderId) {
+            const order = orders.find(order => order.id === orderId);
+            if (order) {
+                const itemsList = order.items.map(item => 
+                    `• ${item.name} (${item.quantity}) - ₹${item.price}`
+                ).join('\n');
+                
+                let addressInfo = '';
+                if (order.address) {
+                    addressInfo = `\n\nDelivery Address:
+${order.address.firstName} ${order.address.lastName}
+${order.address.streetAddress}
+${order.address.city}, ${order.address.state} - ${order.address.pincode}
+Phone: ${order.address.phone}`;
+                }
+                
+                const details = `Order Details:
+
+Order ID: ${order.id}
+Date: ${order.date}
+Status: ${order.status.toUpperCase()}
+
+Items:
+${itemsList}
+
+Total Amount: ₹${order.total}${addressInfo}
+
+${order.status === 'pending' ? 'Your order is being processed and will be confirmed soon.' : 
+  order.status === 'confirmed' ? 'Your order has been confirmed and will be delivered within 2-3 business days.' :
+  order.status === 'delivered' ? 'Your order has been delivered successfully. Thank you for your business!' :
+  'This order has been cancelled.'}`;
+                
+                alert(details);
+            }
+        }
+
+        // Form handlers
+        function handleLogin(event) {
+            event.preventDefault();
+            alert('Login functionality would be implemented here. Redirecting to home...');
+            showPage('home');
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            alert('Registration successful! Please check your email for verification.');
+            showPage('login');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+            updateOrdersDisplay();
+            updateCartDisplay();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96544e8e41b77f39',t:'MTc1MzUzNzIwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
